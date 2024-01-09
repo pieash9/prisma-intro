@@ -5,5 +5,7 @@ const router = express.Router();
 
 router.post("/create-user", UserController.insertIntoDB);
 router.post("/profile", UserController.insertOrUpdateProfile);
+router.get("/:id", UserController.getSingleUser);
+router.get("/", UserController.getUsers);
 
 export const UserRoutes = router;
