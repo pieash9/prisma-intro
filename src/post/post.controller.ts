@@ -18,6 +18,22 @@ const getAllPostController = async (req: Request, res: Response) => {
     res.send({
       success: true,
       message: "Post fetched successfully.",
+      total: result.total,
+      data: result.data,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+const updatePostController = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const data = req.body;
+  try {
+    const result = await PostService.updatePost(id, data);
+    res.send({
+      success: true,
+      message: "Post updated successfully.",
       data: result,
     });
   } catch (error) {
@@ -25,4 +41,23 @@ const getAllPostController = async (req: Request, res: Response) => {
   }
 };
 
-export const PostController = { createPostController, getAllPostController };
+const deletePostController = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  try {
+    const result = await PostService.deletePost(id);
+    res.send({
+      success: true,
+      message: "Post deleted successfully.",
+      data: result,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+export const PostController = {
+  createPostController,
+  getAllPostController,
+  updatePostController,
+  deletePostController,
+};
